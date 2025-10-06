@@ -25,3 +25,17 @@ export async function conectar() {
   }
 }
 
+export async function ConsultarProductos() {
+    const client= new Client(config)
+    try{
+        await client.connect()
+        const res= await client.query('select * from producto')
+        await client.end()
+        return res.rows
+    }catch(error){
+      console.log("Conexión incorrecta ", error)
+      await client.end()
+      throw error
+    }
+  
+}
